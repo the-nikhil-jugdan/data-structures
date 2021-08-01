@@ -61,6 +61,27 @@ class TestLinkedList(unittest.TestCase):
         ll.insert_at_position(2, 10)
         self.assertEqual(ll.elements, [1, 2, 10, 3, 4], "insert_at_position method is not working properly")
 
+    def test_insert_at(self):
+        """Tests the insert_at Linked List method"""
+        ll = LinkedList()
+        for i in range(1, 6):
+            ll.insert_at_last(i)
+        ll.insert_at(2, 6)
+        self.assertEqual(ll.elements, [1, 2, 6, 3, 4, 5], "insert_at method is not working properly")
+        ll.insert_at(0, 7)
+        self.assertEqual(ll.elements, [7, 1, 2, 6, 3, 4, 5], "insert_at method is not working properly")
+        ll.insert_at(7, 8)  # Inserting at last position
+        self.assertEqual(ll.elements, [7, 1, 2, 6, 3, 4, 5, 8], "insert_at method is not working properly")
+        ll.insert_at(1, 9)
+        self.assertEqual(ll.elements, [7, 9, 1, 2, 6, 3, 4, 5, 8], "insert_at method is not working properly")
+        ll.insert_at(8, 10)  # Inserting at last position
+        self.assertEqual(ll.elements, [7, 9, 1, 2, 6, 3, 4, 5, 10, 8], "insert_at method is not working properly")
+        try:
+            # Inserting beyond last position
+            self.assertRaises(Exception, ll.insert_at(11, 10))
+        except Exception:
+            pass
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -62,9 +62,11 @@ class LinkedList(object):
     def insert_at(self, position, data) -> Node:
         """Insert a Node at the given position"""
         length = self.length
+        if position > length:
+            raise Exception("Element Position out of bound")
         if position == 0:
             return self.insert_at_start(data)
-        if position == length - 1:
+        if position == length:
             return self.insert_at_last(data)
         return self.insert_at_position(position, data)
 
