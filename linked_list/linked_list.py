@@ -91,3 +91,37 @@ class LinkedList(object):
         node = Node(data, node_at_prev_pos.next)
         node_at_prev_pos.next = node
         return node
+
+    def remove_at(self, position: int) -> Node:
+        """Remove the Node at the given position"""
+        length = self.length
+        if position > length:
+            raise Exception("Element Position out of bound")
+        if position == 0:
+            return self.remove_at_start()
+        if position == length - 1:
+            return self.remove_at_last()
+        return self.remove_at_position(position)
+
+    def remove_at_start(self) -> Node:
+        if self.head:
+            ret = self.head
+            self.head = self.head.next
+            ret.next = None
+            return ret
+
+    def remove_at_last(self) -> Node:
+        """Remove the Node at the last of the Linked List"""
+        length = self.length
+        pre_last = self.traverse(position=length - 2)
+        ret = pre_last.next
+        pre_last.next = None
+        return ret
+
+    def remove_at_position(self, position: int) -> Node:
+        """Removes the Node at the given position"""
+        prev_node = self.traverse(position=position - 1)
+        ret = prev_node.next
+        prev_node.next = ret.next
+        ret.next = None
+        return ret

@@ -82,6 +82,63 @@ class TestLinkedList(unittest.TestCase):
         except Exception:
             pass
 
+    def test_remove_at_start(self):
+        """Tests the remove_at_start Linked List method"""
+        ll = LinkedList()
+        for i in range(1, 6):
+            ll.insert_at_last(i)
+        ll.remove_at_start()
+        self.assertEqual(ll.elements, [2, 3, 4, 5], "remove_at_start method is not working properly")
+        ll.remove_at_start()
+        self.assertEqual(ll.elements, [3, 4, 5], "remove_at_start method is not working properly")
+        ll.remove_at_start()
+        self.assertEqual(ll.elements, [4, 5], "remove_at_start method is not working properly")
+
+    def test_remove_at_last(self):
+        """Tests the remove_at_last Linked List method"""
+        ll = LinkedList()
+        for i in range(1, 6):
+            ll.insert_at_last(i)
+        ll.remove_at_last()
+        self.assertEqual(ll.elements, [1, 2, 3, 4], "remove_at_last method is not working properly")
+        ll.remove_at_last()
+        self.assertEqual(ll.elements, [1, 2, 3], "remove_at_last method is not working properly")
+        ll.remove_at_last()
+        self.assertEqual(ll.elements, [1, 2], "remove_at_last method is not working properly")
+
+    def test_remove_at_position(self):
+        """Tests the remove_at_position method of Linked List"""
+        ll = LinkedList()
+        for i in range(1, 6):
+            ll.insert_at_last(i)
+        ll.remove_at_position(1)
+        self.assertEqual(ll.elements, [1, 3, 4, 5], "remove_at_position method is not working properly")
+        ll.remove_at_position(2)
+        self.assertEqual(ll.elements, [1, 3, 5], "remove_at_position method is not working properly")
+        ll.remove_at_position(2)
+        self.assertEqual(ll.elements, [1, 3], "remove_at_position method is not working properly")
+
+    def test_remove_at(self):
+        """Tests the remove_at Linked List method"""
+        ll = LinkedList()
+        for i in range(1, 11):
+            ll.insert_at_last(i)
+        ll.remove_at(8)
+        self.assertEqual(ll.elements, [1, 2, 3, 4, 5, 6, 7, 8, 10], "remove_at method is not working properly")
+        ll.remove_at(0)
+        self.assertEqual(ll.elements, [2, 3, 4, 5, 6, 7, 8, 10], "remove_at method is not working properly")
+        ll.remove_at(7)  # Inserting at last position
+        self.assertEqual(ll.elements, [2, 3, 4, 5, 6, 7, 8], "remove_at method is not working properly")
+        ll.remove_at(1)
+        self.assertEqual(ll.elements, [2, 4, 5, 6, 7, 8], "remove_at method is not working properly")
+        ll.remove_at(2)  # Inserting at last position
+        self.assertEqual(ll.elements, [2, 4, 6, 7, 8], "insert_at method is not working properly")
+        try:
+            # Inserting beyond last position
+            self.assertRaises(Exception, ll.remove_at(11))
+        except Exception:
+            pass
+
 
 if __name__ == '__main__':
     unittest.main()
