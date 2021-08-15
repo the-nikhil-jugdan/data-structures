@@ -127,11 +127,11 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(ll.elements, [1, 2, 3, 4, 5, 6, 7, 8, 10], "remove_at method is not working properly")
         ll.remove_at(0)
         self.assertEqual(ll.elements, [2, 3, 4, 5, 6, 7, 8, 10], "remove_at method is not working properly")
-        ll.remove_at(7)  # Inserting at last position
+        ll.remove_at(7)  # Removing at last position
         self.assertEqual(ll.elements, [2, 3, 4, 5, 6, 7, 8], "remove_at method is not working properly")
         ll.remove_at(1)
         self.assertEqual(ll.elements, [2, 4, 5, 6, 7, 8], "remove_at method is not working properly")
-        ll.remove_at(2)  # Inserting at last position
+        ll.remove_at(2)
         self.assertEqual(ll.elements, [2, 4, 6, 7, 8], "insert_at method is not working properly")
         try:
             # Inserting beyond last position

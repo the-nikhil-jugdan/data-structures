@@ -125,3 +125,6 @@ class LinkedList(object):
         prev_node.next = ret.next
         ret.next = None
         return ret
+
+    def delete(self):
+        self.head = None
