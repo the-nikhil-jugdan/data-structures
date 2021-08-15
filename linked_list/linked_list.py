@@ -40,7 +40,7 @@ class LinkedList(object):
 
     def traverse(self, action=None, position: int = None) -> Node:
         """
-            Traverses the list, returns the last element and at each node performs the given action
+            Traverses the list, returns the last or specified element and at each node performs the given action
         """
         current_node: Node = self.head
         current_position = 0
@@ -112,11 +112,13 @@ class LinkedList(object):
 
     def remove_at_last(self) -> Node:
         """Remove the Node at the last of the Linked List"""
-        length = self.length
-        pre_last = self.traverse(position=length - 2)
-        ret = pre_last.next
-        pre_last.next = None
-        return ret
+        # If list is not empty
+        if self.head:
+            length = self.length
+            pre_last = self.traverse(position=length - 2)
+            ret = pre_last.next
+            pre_last.next = None
+            return ret
 
     def remove_at_position(self, position: int) -> Node:
         """Removes the Node at the given position"""

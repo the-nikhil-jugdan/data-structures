@@ -25,3 +25,7 @@ class TestNode(unittest.TestCase):
         node_2 = Node(2, prev_node=node_0, next_node=node_1)
         self.assertEqual(node_2.previous, node_0, "Incorrect previous in node initialization")
         self.assertEqual(node_2.next, node_1, "Incorrect next in node initialization")
+
+
+if __name__ == '__main__':
+    unittest.main()

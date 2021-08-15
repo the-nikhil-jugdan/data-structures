@@ -22,9 +22,9 @@ def length_function(instance: TestCase, ll_class):
     Test cases for length function
     """
     ll = ll_class()
-    instance.assertEqual(ll.elements, [], "elements works incorrectly for empty list")
+    instance.assertEqual(ll.length, 0, "Length function returns incorrect length for 0 elements")
     ll = ll_class(5)
-    instance.assertEqual(ll.elements, [5], "elements works incorrectly")
+    instance.assertEqual(ll.length, 1, "Length function returns incorrect length")
 
 
 def elements_property(instance: TestCase, ll_class):
