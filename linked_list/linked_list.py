@@ -115,6 +115,10 @@ class LinkedList(object):
         # If list is not empty
         if self.head:
             length = self.length
+            if length - 2 < 0:
+                ret = self.head
+                self.head = None
+                return ret
             pre_last = self.traverse(position=length - 2)
             ret = pre_last.next
             pre_last.next = None

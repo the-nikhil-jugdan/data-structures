@@ -137,6 +137,9 @@ class LinkedList(object):
         # If list is not empty
         if self.head:
             last = self.traverse()
+            if last.previous is None:
+                self.head = None
+                return last
             prev = last.previous
             last.previous = None
             prev.next = None

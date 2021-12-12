@@ -131,6 +131,11 @@ def remove_at_last(instance: TestCase, ll_class):
     instance.assertEqual(ll.elements, [1, 2, 3], "remove_at_last method is not working properly")
     ll.remove_at_last()
     instance.assertEqual(ll.elements, [1, 2], "remove_at_last method is not working properly")
+    ll.remove_at_last()
+    instance.assertEqual(ll.elements, [1], "remove_at_last method is not working properly")
+    ll.remove_at_last()
+    instance.assertEqual(ll.elements, [], "remove_at_last method is not working properly")
+
 
 
 def remove_at_position(instance: TestCase, ll_class):
@@ -170,3 +175,12 @@ def remove_at(instance: TestCase, ll_class):
         instance.assertRaises(Exception, ll.remove_at(11))
     except Exception:
         pass
+
+
+def non_empty_circular_list_initialization(instance: TestCase, ll, initial=0):
+    """
+    Test Cases for non empty linked list initialization
+    """
+    instance.assertIsNotNone(ll.head, "head is None for non-empty list")
+    instance.assertEqual(ll.head.data, initial, "head initialized with wrong data")
+    instance.assertEqual(ll.head.next, ll.head, "head.next is not head for singleton list")
