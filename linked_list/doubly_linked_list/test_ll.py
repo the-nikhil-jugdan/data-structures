@@ -1,6 +1,6 @@
 import unittest
 
-from utils import ll_test_cases as utils
+from linked_list.utils import ll_test_cases as utils
 from .linked_list import LinkedList
 
 

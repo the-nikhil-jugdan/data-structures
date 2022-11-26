@@ -1,4 +1,4 @@
-from circular_linked_list.linked_list import CircularLinkedList
+from linked_list.circular_linked_list.linked_list import CircularLinkedList
 
 
 class Node:
