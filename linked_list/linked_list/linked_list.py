@@ -6,58 +6,30 @@ class LinkedList(object):
 
     def __init__(self, data: object = None):
         """
-            Creates a Linked List with given data for head.
-            Creates an empty list if no data given
+        Creates a Linked List with given data for head.
+        Creates an empty list if no data given
         """
         if data:
-            self.head: Node = Node(data)
+            self.head: Node | None = Node(data)
         else:
             self.head = None
+
+    def __iter__(self):
+        """Yields one node at a time, making LL an iterable"""
+        current_node = self.head
+        while current_node is not None:
+            yield current_node
+            current_node = current_node.next
 
     @property
     def length(self) -> int:
         """Returns length of the Linked List"""
-        elements = 0
-
-        def inc_len(node):
-            nonlocal elements
-            elements += 1
-
-        self.traverse(inc_len)
-        return elements
+        return sum(1 for _ in self)
 
     @property
     def elements(self) -> list:
         """Returns list of data of the Linked list"""
-        elements = []
-
-        def add(node):
-            nonlocal elements
-            elements.append(node.data)
-
-        self.traverse(add)
-        return elements
-
-    def traverse(self, action=None, position: int = None) -> Node:
-        """
-            Traverses the list, returns the last or specified element and at each node performs the given action
-        """
-        current_node: Node = self.head
-        current_position = 0
-        last_node: Node = None
-
-        while current_node is not None:
-            if action:
-                action(current_node)
-            if current_position == position:
-                last_node = current_node
-                break
-            if not current_node.next:
-                last_node = current_node
-            current_node = current_node.next
-            current_position += 1
-
-        return last_node
+        return [elem.data for elem in self]
 
     def insert_at(self, position, data) -> Node:
         """Insert a Node at the given position"""
@@ -82,17 +54,25 @@ class LinkedList(object):
         if not self.head:
             self.head = new_node
         else:
-            last_node = self.traverse()
-            last_node.next = new_node
+            last_node = None
+            for current_node in self:
+                last_node = current_node
+            if last_node is not None:
+                last_node.next = new_node
         return new_node
 
-    def insert_at_position(self, position, data):
-        node_at_prev_pos = self.traverse(position=position - 1)
-        node = Node(data, node_at_prev_pos.next)
-        node_at_prev_pos.next = node
+    def insert_at_position(self, position, data) -> Node:
+        curr_node = None
+        for curr_pos, curr_node in enumerate(self):
+            if curr_pos == position - 1:
+                break
+        if curr_node is None:
+            raise IndexError("Element position out of bound")
+        node = Node(data, curr_node.next)
+        curr_node.next = node
         return node
 
-    def remove_at(self, position: int) -> Node:
+    def remove_at(self, position: int) -> Node | None:
         """Remove the Node at the given position"""
         length = self.length
         if position > length:
@@ -103,34 +83,46 @@ class LinkedList(object):
             return self.remove_at_last()
         return self.remove_at_position(position)
 
-    def remove_at_start(self) -> Node:
+    def remove_at_start(self) -> Node | None:
         if self.head:
             ret = self.head
             self.head = self.head.next
             ret.next = None
             return ret
 
-    def remove_at_last(self) -> Node:
+    def remove_at_last(self) -> Node | None:
         """Remove the Node at the last of the Linked List"""
         # If list is not empty
         if self.head:
-            length = self.length
-            if length - 2 < 0:
-                ret = self.head
+            pre_last = self.head
+            if self.head.next is None:
                 self.head = None
-                return ret
-            pre_last = self.traverse(position=length - 2)
+                return pre_last
+
+            length = self.length
+            for pos, node in enumerate(self):
+                if pos == length - 2:
+                    pre_last = node
+                    break
+
             ret = pre_last.next
             pre_last.next = None
             return ret
 
-    def remove_at_position(self, position: int) -> Node:
+    def remove_at_position(self, position: int) -> Node | None:
         """Removes the Node at the given position"""
-        prev_node = self.traverse(position=position - 1)
-        ret = prev_node.next
-        prev_node.next = ret.next
-        ret.next = None
-        return ret
+        if self.head:
+            prev_node = None
+            for pos, node in enumerate(self):
+                if pos == position - 1:
+                    prev_node = node
+                    break
+            if prev_node is None or prev_node.next is None:
+                raise IndexError("Element position out of bound")
+            ret = prev_node.next
+            prev_node.next = ret.next
+            ret.next = None
+            return ret
 
     def delete(self):
         self.head = None
