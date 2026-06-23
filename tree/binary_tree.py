@@ -95,3 +95,24 @@ class BinarySearchTree(object):
                 + " " * (max_len // 2 - len(str(node.data))),
             )
         return str_rep
+
+    def range_query(self, key1, key2) -> list:
+        if self._root:
+            return BinarySearchTree.range_query_node(self._root, key1, key2)
+        return []
+
+    @staticmethod
+    def range_query_node(node: Node | None, key1, key2) -> list:
+        if node is None:
+            return []
+        if key1 <= node.data <= key2:
+            return [
+                *BinarySearchTree.range_query_node(node.left, key1, node.data),
+                node.data,
+                *BinarySearchTree.range_query_node(node.right, node.data, key2),
+            ]
+        if node.data <= key1:
+            return BinarySearchTree.range_query_node(node.right, key1, key2)
+        if key2 <= node.data:
+            return BinarySearchTree.range_query_node(node.left, key1, key2)
+        return []
