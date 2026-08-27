@@ -42,6 +42,18 @@ class BinarySearchTree(object):
             else:
                 BinarySearchTree.insert_in_node(node.right, data)
 
+    def delete(self, data):
+        if self._root:
+            return BinarySearchTree.delete_in_node(self._root, data)
+
+    @staticmethod
+    def delete_in_node(node: Node, data):
+        if data < node.data:
+            if node.left:
+                if data == node.left.data:
+                    pass
+                return BinarySearchTree.delete_in_node(node.left, data)
+
     def __str__(self) -> str:
         if self._root is not None:
             return "\n".join(BinarySearchTree.to_node_str_list(self._root))
